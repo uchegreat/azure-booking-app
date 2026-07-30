@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: azure-booking-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: azure-booking-app
+  template:
+    metadata:
+      labels:
+        app: azure-booking-app
+    spec:
+      containers:
+        - name: app
+          image: acrgreatbookingapp.azurecr.io/azure-booking-app:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: booking-db-secret
+                  key: DATABASE_URL
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: azure-booking-app-service
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 3000
+  selector:
+    app: azure-booking-app

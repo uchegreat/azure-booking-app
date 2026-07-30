@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Booking App</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="hero">
+    <div class="hero-content">
+      <span class="hero-badge">Easy online booking</span>
+      <h1>Book your stay in seconds</h1>
+      <p>
+        Simple, fast, and beautiful booking management for your next hotel or apartment stay.
+      </p>
+      <div class="hero-actions">
+        <a href="#booking-form" class="btn btn-primary">Make a booking</a>
+        <a href="#bookings-section" class="btn btn-secondary">View bookings</a>
+      </div>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat-card">
+        <strong>24/7</strong>
+        <span>Booking access</span>
+      </div>
+      <div class="stat-card">
+        <strong>1 click</strong>
+        <span>Quick reservations</span>
+      </div>
+      <div class="stat-card">
+        <strong>Live</strong>
+        <span>Saved to database</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="card">
+      <h2 id="booking-form">Create a booking</h2>
+      <p class="muted">Fill in the form below to add a new reservation.</p>
+
+      <form id="booking-form-el">
+        <div>
+          <label for="name">Name</label>
+          <input id="name" name="name" required />
+        </div>
+
+        <div>
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required />
+        </div>
+
+        <div>
+          <label for="date">Booking Date</label>
+          <input id="date" name="date" type="date" required />
+        </div>
+
+        <button type="submit">Create Booking</button>
+        <div id="error" class="error"></div>
+      </form>
+    </div>
+
+    <div class="card" id="bookings-section">
+      <h2>Bookings</h2>
+      <ul id="bookings-list"></ul>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('booking-form-el');
+    const bookingsList = document.getElementById('bookings-list');
+    const errorDiv = document.getElementById('error');
+
+    async function loadBookings() {
+      try {
+        errorDiv.textContent = '';
+        const res = await fetch('/api/bookings');
+        const data = await res.json();
+        bookingsList.innerHTML = '';
+
+        if (!data.length) {
+          bookingsList.innerHTML = '<li class="empty">No bookings yet.</li>';
+          return;
+        }
+
+        data.forEach(b => {
+          const li = document.createElement('li');
+          li.innerHTML = `
+            <span class="booking-name">${b.name}</span>
+            <div class="booking-meta">${b.email} • ${new Date(b.booking_date).toLocaleDateString()}</div>
+          `;
+          bookingsList.appendChild(li);
+        });
+      } catch (err) {
+        errorDiv.textContent = 'Failed to load bookings.';
+      }
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorDiv.textContent = '';
+
+      const body = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        date: document.getElementById('date').value
+      };
+
+      try {
+        const res = await fetch('/api/bookings', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
+
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err.error || 'Create failed');
+        }
+
+        form.reset();
+        loadBookings();
+      } catch (err) {
+        errorDiv.textContent = err.message;
+      }
+    });
+
+    loadBookings();
+  </script>
+</body>
+</html>
