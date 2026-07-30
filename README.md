@@ -186,15 +186,25 @@ The app reads the connection string from the `CONNECTION_STRING` environment var
 - **Secrets management**: Database credentials stored in Kubernetes Secrets, not in code.
 - **Infrastructure**: All Azure resources (AKS, ACR, PostgreSQL) are managed via Azure CLI/Portal and used by the automated pipeline.
 
-- ## Screenshots
+## Screenshots
 
 ### Booking form
 
-![Booking form](images/Screenshot%202026-07-30%20193338.png)
+![Booking form 1](images/Screenshot%202026-07-30%20160730.png)
+
+![Booking form 2](images/Screenshot%202026-07-30%20171520.png)
+
+![Booking form 3](images/Screenshot%202026-07-30%20172132.png)
 
 ### Booking list
 
-![Booking list](images/Screenshot%202026-07-30%20193406.png)
+![Booking list 1](images/Screenshot%202026-07-30%20193338.png)
+
+![Booking list 2](images/Screenshot%202026-07-30%20193406.png)
+
+![Booking list 3](images/Screenshot%202026-07-30%20194725.png)
+
+
 
 
 
