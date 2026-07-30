@@ -21,8 +21,9 @@ spec:
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:
-                  name: booking-db-secret
-                  key: DATABASE_URL
+                  name: db-secret
+                  key: CONNECTION_STRING
+
 ---
 apiVersion: v1
 kind: Service
