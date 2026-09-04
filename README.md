@@ -196,6 +196,8 @@ The app reads the connection string from the `CONNECTION_STRING` environment var
 
 ![Booking form 2](images/Screenshot%202026-07-30%20171520.png)
 
+### Booking app services and Ingress
+
 ![Booking form 3](images/Screenshot%202026-07-30%20172132.png)
 
 ### Booking list
