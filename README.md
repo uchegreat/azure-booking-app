@@ -188,7 +188,7 @@ The app reads the connection string from the `CONNECTION_STRING` environment var
 
 ## Screenshots
 
-### Booking form
+### Home Page
 
 ![Booking form 1](images/Screenshot%202026-07-30%20160730.png)
 
