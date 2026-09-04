@@ -200,10 +200,11 @@ The app reads the connection string from the `CONNECTION_STRING` environment var
 
 ![Booking form 3](images/Screenshot%202026-07-30%20172132.png)
 
-## sign page
+## sign in page
 
 ![Booking list 2](images/Screenshot%202026-07-30%20193406.png)
 
+## Booking app kubernetes services
 ![Booking list 3](images/Screenshot%202026-07-30%20194725.png)
 
 
